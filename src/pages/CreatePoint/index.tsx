@@ -1,6 +1,6 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent} from "react";
 import logo from "../../assets/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 import { Map, TileLayer, Marker } from "react-leaflet";
 import { LeafletMouseEvent } from "leaflet";
@@ -25,6 +25,8 @@ interface IBGECityResponse {
 
 
 const CreatePoint: React.FC = () => {
+    const history = useHistory();
+
     const [items, setItems] = useState<Item[]>([]);
     const [ufs, setUfs] = useState<string[]>([]);
     const [citys, setCitys] = useState<string[]>([]);
@@ -131,6 +133,7 @@ const CreatePoint: React.FC = () => {
         response => {
           let name = response.data.name
           alert(`Ponto ${name} Criado`);
+          history.push("/");
         },
         error => {
           alert('Erro ao criar Ponto');
