@@ -29,6 +29,7 @@ const CreatePoint: React.FC = () => {
     const [citys, setCitys] = useState<string[]>([]);
 
     const [selectedUF, setSelectedUF] = useState('0');
+    const [selectedCity, setSelectedCity] = useState('0');
 
     useEffect(() => {
         api.get("items").then((response) => {
@@ -55,8 +56,13 @@ const CreatePoint: React.FC = () => {
     }, [selectedUF]);
 
     function handleSelectedUF(event: ChangeEvent<HTMLSelectElement>) {
-        const uf = event.target.value;
-        setSelectedUF(uf);
+      const uf = event.target.value;
+      setSelectedUF(uf);
+    } 
+
+    function handleSelectedCity(event: ChangeEvent<HTMLSelectElement>) {
+      const city = event.target.value;
+      setSelectedCity(city);
     } 
 
     return (
@@ -125,7 +131,7 @@ const CreatePoint: React.FC = () => {
 
                         <div className="field">
                             <label htmlFor="city">Cidade</label>
-                            <select name="city" id="city">
+                            <select name="city" id="city" value={selectedCity} onChange={handleSelectedCity}>
                                 <option value="0">Selecione uma cidade</option>
                                 {citys.map(city => (
                                   <option key={city} value={city}>{city}</option>
