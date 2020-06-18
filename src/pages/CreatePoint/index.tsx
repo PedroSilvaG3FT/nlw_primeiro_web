@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 import { Map, TileLayer, Marker } from "react-leaflet";
+import api from "../../services/api";
 
 import "./CreatePoint.css";
 
+interface Item {
+  id: number,
+  title: string,
+  image_url: string
+}
+
 const CreatePoint: React.FC = () => {
+    const [items, setItems] = useState<Item[]>([]);
+    useEffect(() => {
+        api.get("items").then((response) => {
+            setItems(response.data);
+        });
+    }, []);
+
     return (
         <div id="page-create-point">
             <header>
@@ -57,7 +71,7 @@ const CreatePoint: React.FC = () => {
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
 
-                        <Marker position={[-23.4856612, -46.3587532]}/>
+                        <Marker position={[-23.4856612, -46.3587532]} />
                     </Map>
 
                     <div className="field-group">
@@ -84,13 +98,15 @@ const CreatePoint: React.FC = () => {
                     </legend>
 
                     <ul className="items-grid">
-                        <li>
-                            <img
-                                src="http://localhost:3333/uploads/lampadas.svg"
-                                alt="Teste"
-                            />
-                            <span>Lampadas</span>
-                        </li>
+                        {items.map((item) => (
+                            <li key={item.id}>
+                                <img
+                                    src={item.image_url}
+                                    alt={item.title}
+                                />
+                                <span>{item.title}</span>
+                            </li>
+                        ))}
                     </ul>
                 </fieldset>
 
