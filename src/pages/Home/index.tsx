@@ -1,8 +1,10 @@
 import React from 'react';
 import logo from "../../assets/logo.svg";
+import { FiLogIn } from "react-icons/fi";
+import { Link } from "react-router-dom"
+
 import "./Home.css";
 
-import { FiLogIn } from "react-icons/fi";
 
 const Home: React.FC = () => {
     return (
@@ -18,13 +20,12 @@ const Home: React.FC = () => {
                         forma eficente.
                     </p>
 
-                    <a href="/cadastro">
+                    <Link to="/create-point">
                         <span>
-                            {" "}
-                            <FiLogIn />{" "}
+                            <FiLogIn />
                         </span>
                         <strong>Cadastre um ponto de coleta</strong>
-                    </a>
+                    </Link>
                 </main>
             </div>
         </div>
